@@ -325,3 +325,22 @@ GET http://localhost:8080/api/v1/stocks/sell/
     }
 ]
 ```
+
+#### 5.6. Texto de e-mails (exemplos)
+##### 5.6.1. Venda realizada com sucesso
+```
+Assunto:
+Notificação de venda ação 6b545954-e0b3-4138-af9f-1a6dcb132502
+
+Corpo do e-mail:
+5000 ações foram vendidas com sucesso no valor de 20.0 (preço unitário).
+```
+
+##### 5.6.2. Compra realizada com sucesso
+```
+Assunto:
+Notificação de compra ação 6b545954-e0b3-4138-af9f-1a6dcb132502
+
+Corpo do e-mail:
+1500 ações foram compradas com sucesso no valor de 20.0 (preço unitário).
+```
