@@ -11,6 +11,7 @@ import com.javaee.allan.mercadoacoes.domain.Stock;
 import com.javaee.allan.mercadoacoes.domain.StockDemand;
 import com.javaee.allan.mercadoacoes.domain.StockMarket;
 import com.javaee.allan.mercadoacoes.domain.StockOffer;
+import com.javaee.allan.mercadoacoes.emailsender.EmailSender;
 import com.javaee.allan.mercadoacoes.repositories.OfferRepository;
 
 @Service
@@ -29,6 +30,7 @@ public class OfferServiceImpl implements OfferService {
 
 	@Override
 	public StockOffer createNew(StockMarket stockMarket) {
+		EmailSender emailSender = new EmailSender();
 		Investor investor = null;
 		if (!stockMarket.isCompanyOffer()) {
 			investor = investorService.getById(stockMarket.getInvestorId());
@@ -69,6 +71,26 @@ public class OfferServiceImpl implements OfferService {
 					market.setOffer(stockOffer);
 					market.setDemand(stockDemand);
 					marketService.save(market);
+					
+					if (stockOffer.isCompanyOffer()) {
+						stock.setQuantityCompany(stock.getQuantityCompany() - quant);
+					}
+
+					if (stockOffer.isCompanyOffer()) {
+						emailSender.SendEmail(stockOffer.getStock().getCompany().getEmail(), 
+								"Notificação de venda ação " + stockOffer.getStock().getId(), 
+								Integer.toString(quant) + " ações foram vendidas com sucesso no valor de " + stockDemand.getPrice() + " (preço unitário)."
+						);
+					} else {
+						emailSender.SendEmail(stockOffer.getInvestor().getEmail(), 
+								"Notificação de venda ação " + stockOffer.getStock().getId(), 
+								Integer.toString(quant) + " ações foram vendidas com sucesso no valor de " + stockDemand.getPrice() + " (preço unitário)."
+						);
+					}
+					emailSender.SendEmail(stockDemand.getInvestor().getEmail(), 
+							"Notificação de compra ação " + stockOffer.getStock().getId(), 
+							Integer.toString(quant) + " ações foram compradas com sucesso no valor de " + stockDemand.getPrice() + " (preço unitário)."
+					);
 				}
 			}
 		});
