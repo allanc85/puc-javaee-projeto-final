@@ -79,12 +79,12 @@ public class DemandServiceImpl implements DemandService {
 						);
 					} else {
 						emailSender.SendEmail(stockOffer.getInvestor().getEmail(), 
-								"Notificação de venda: ação " + stockOffer.getStock().getId(), 
+								"Notificação de venda ação " + stockOffer.getStock().getId(), 
 								Integer.toString(quant) + " ações foram vendidas com sucesso no valor de " + stockDemand.getPrice() + " (preço unitário)."
 						);
 					}
 					emailSender.SendEmail(stockDemand.getInvestor().getEmail(), 
-							"Notificação de compra: ação " + stockOffer.getStock().getId(), 
+							"Notificação de compra ação " + stockOffer.getStock().getId(), 
 							Integer.toString(quant) + " ações foram compradas com sucesso no valor de " + stockDemand.getPrice() + " (preço unitário)."
 					);
 
