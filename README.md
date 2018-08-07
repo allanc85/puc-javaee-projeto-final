@@ -16,10 +16,15 @@ docker run -d --hostname rabbitmq --name rabbitmq-management -p 15672:15672 -p 5
 Alterar constantes fromEmail e password com os dados do e-mail de Origem no arquivo /src/main/java/com/javaee/allan/mercadoacoes/emailsender/EmailSender.java
 ```
 
-### 3. Executar o projeto
+### 3. Executar o projeto no Eclipse
 
 ### 4. Endereços Docker:
 * MongoDB: mongodb://localhost:27017
 * RabbitMQ: http://localhost:15672/#/queues
 
 ### 5. API's
+#### 5.1. Empresas
+* Listar empersas
+```
+GET http://localhost:8080/api/v1/companies
+```
